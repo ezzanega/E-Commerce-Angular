@@ -78,14 +78,6 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center',
     }),
-
-    // AuthModule.forRoot({
-    //   domain: 'dev-inh1vsyjgrokawnf.us.auth0.com',
-    //   clientId: '24slnJC1JEhD2WKF1TACFs3Xvx11530B',
-    //   authorizationParams: {
-    //     redirect_uri: window.location.origin,
-    //   },
-    // }),
   ],
   providers: [
     AuthserviceService,
