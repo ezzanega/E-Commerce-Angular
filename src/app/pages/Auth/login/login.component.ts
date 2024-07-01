@@ -1,12 +1,12 @@
 import { CartService } from 'src/app/services/cartService/cart.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthserviceService } from 'src/app/services/auth/authservice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
 
-import { AuthService as Auth0Service, User } from '@auth0/auth0-angular';
+
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,32 +15,32 @@ import { AuthService as Auth0Service, User } from '@auth0/auth0-angular';
 })
 export class LoginComponent implements OnInit {
 
-  user: User | null  = null;
+  // user: User | null  = null;
 
   constructor(
     private authService: AuthserviceService,
     private router: Router,
     private CartService: CartService,
     private toastr :ToastrService,
-    public auth0Service: Auth0Service
+    // public auth0Service: Auth0Service
   ) {}
 
 
   ngOnInit() {
-    this.auth0Service.user$.subscribe((user:any) => {
-      this.user = user;
-      if (user) {
-        this.authService.googleSignUp(user.sub).subscribe(
-          response => {
-            this.authService.saveToken(response.token, response.expires_in);
-            this.router.navigate(['/']);
-          },
-          error => {
-            console.error('Google sign-up error', error);
-          }
-        );
-      }
-    });
+    // this.auth0Service.user$.subscribe((user:any) => {
+    //   this.user = user;
+    //   if (user) {
+    //     this.authService.googleSignUp(user.sub).subscribe(
+    //       response => {
+    //         this.authService.saveToken(response.token, response.expires_in);
+    //         this.router.navigate(['/']);
+    //       },
+    //       error => {
+    //         console.error('Google sign-up error', error);
+    //       }
+    //     );
+    //   }
+    // });
   }
 
   credentials = { email: '', password: '' };
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
 
   signInWithGoogle(): void {
-    this.auth0Service.loginWithRedirect();
+    // this.auth0Service.loginWithRedirect();
   }
 
 
