@@ -1,0 +1,148 @@
+<div class="breadcrumb-area bg-gray-4 breadcrumb-padding-1">
+  <div class="container">
+      <div class="breadcrumb-content text-center">
+          <h2 data-aos="fade-up" data-aos-delay="200">Product Details</h2>
+          <ul data-aos="fade-up" data-aos-delay="400">
+              <li><a routerLink="/shop">Shop</a></li>
+              <li><i class="ti-angle-right"></i></li>
+              <li>Product Details</li>
+          </ul>
+      </div>
+  </div>
+  <div class="breadcrumb-img-1" data-aos="fade-right" data-aos-delay="200">
+      <img src="https://htmldemo.net/urdan/urdan/assets/images/banner/breadcrumb-1.png" alt="">
+  </div>
+  <div class="breadcrumb-img-2" data-aos="fade-left" data-aos-delay="200">
+      <img src="https://htmldemo.net/urdan/urdan/assets/images/banner/breadcrumb-2.png" alt="">
+  </div>
+</div>
+<div class="product-details-area pb-100 pt-100" *ngIf="product">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
+          <div class="swiper-container product-details-big-img-slider-1 pd-big-img-style">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" *ngFor="let image of images">
+                <div class="easyzoom-style">
+                  <div class="easyzoom easyzoom--overlay">
+                    <a [href]="'http://127.0.0.1:8000/storage/' + image">
+                      <img [src]="'http://127.0.0.1:8000/storage/' + image" alt="" />
+                    </a>
+                  </div>
+                  <a class="easyzoom-pop-up img-popup" [href]="'http://127.0.0.1:8000/storage/' + image">
+                    <i class="pe-7s-search"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div
+          class="product-details-content"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <h2>{{ product.nom }}</h2>
+          <div class="product-details-price">
+            <span class="old-price" *ngIf="product.old_price">{{ product.old_price | currency }}</span>
+            <span class="new-price">{{ product.prix | currency }}</span>
+          </div>
+          <div class="product-details-review">
+            <div class="product-rating">
+              <i class="ti-star"></i>
+              <i class="ti-star"></i>
+              <i class="ti-star"></i>
+              <i class="ti-star"></i>
+              <i class="ti-star"></i>
+            </div>
+            <span>( 1 Customer Review )</span>
+          </div>
+          <div class="product-color product-color-active product-details-color">
+            <span>Color :</span>
+            <ul>
+              <li><a title="{{ product.color }}" class="pink" href="#">{{ product.color }} </a></li>
+            </ul>
+
+          </div>
+          <div class="product-details-meta">
+            <ul>
+              <li><span class="title">Description</span> </li>
+              <li>{{ product.description }}</li>
+            </ul>
+          </div>
+          <div class="product-details-action-wrap">
+            <div class="product-quality">
+              <div class="dec qtybutton">-</div>
+              <input
+                class="cart-plus-minus-box input-text qty text"
+                name="qtybutton"
+                value="1"
+              />
+              <div class="inc qtybutton">+</div>
+            </div>
+            <div class="single-product-cart btn-hover">
+              <a href="#">Add to cart</a>
+            </div>
+            <div class="single-product-wishlist">
+              <a title="Wishlist" href="wishlist.html"
+                ><i class="pe-7s-like"></i
+              ></a>
+            </div>
+          </div>
+          <div class="product-details-meta">
+            <ul>
+              <li><span class="title">SKU:</span> {{ product.sku }}</li>
+              <li>
+                <span class="title">Category:</span>
+                <ul>
+                  <li><a href="#">{{ product.category?.name }}</a></li>
+                </ul>
+              </li>
+              <li>
+                <span class="title">Tags:</span>
+                <ul class="tag">
+                  <li><a href="#">{{ product.tag.name }}</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="social-icon-style-4">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="description-review-area pb-85">
+  <div class="container">
+    <div
+      class="description-review-topbar nav"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
+      <a class="active" data-bs-toggle="tab" href="#des-details1">
+        Description
+      </a>
+    </div>
+    <div class="tab-content">
+      <div id="des-details1" class="tab-pane active">
+        <div class="product-description-content text-center">
+          <p data-aos="fade-up" data-aos-delay="200">
+            {{ product.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

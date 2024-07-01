@@ -1,0 +1,28 @@
+.sidebar-cart-active {
+  position: fixed;
+  top: 0;
+  width: 420px;
+  padding: 104px 50px 50px;
+  min-height: 100vh;
+  bottom: 0;
+  z-index: 9999;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 250ms ease-in;
+  transform: translateX(200px);
+  box-shadow: 0 0 87px 0 rgba(0, 0, 0, 0.09);
+  background-color: #fff;
+}
+
+.sidebar-cart-active.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}

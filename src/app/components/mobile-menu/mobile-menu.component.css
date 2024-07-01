@@ -1,0 +1,103 @@
+.off-canvas-active {
+  position: fixed;
+  top: 0;
+  width: 370px;
+  min-height: 100vh;
+  bottom: 0;
+  z-index: 111;
+  right: 0;
+  visibility: hidden;
+  opacity: 1;
+  transition: all 400ms ease-out;
+  transform: translate(370px, 0);
+  background-color: #fff;
+  box-shadow: 0 0 87px 0 rgba(0, 0, 0, 0.09);
+  z-index: 9999;
+}
+.off-canvas-active.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.off-canvas-close {
+  position: absolute;
+  left: -40px;
+  top: 0px;
+  z-index: 9;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  background-color: #333;
+}
+.off-canvas-close i {
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  color: #fff;
+  line-height: 40px;
+}
+.off-canvas-close:hover i {
+  transform: rotate(90deg);
+}
+.off-canvas-wrap {
+  padding: 40px 30px 50px;
+  overflow: auto;
+  height: 100%;
+}
+.off-canvas-margin-padding {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 27px;
+  padding-bottom: 33px;
+}
+.off-canvas-margin-padding-2 {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 22px;
+  padding-bottom: 29px;
+}
+.slinky-mobile-menu {
+  text-align: left;
+}
+.slinky-mobile-menu ul li a {
+  color: #000;
+  padding: 8px 0px;
+}
+.slinky-mobile-menu ul li a:hover {
+  color: #007bff;
+}
+.slinky-mobile-menu ul li a span {
+  color: #383838;
+  font-size: 14px;
+  font-weight: 500;
+}
+.slinky-theme-default .next::after {
+  content: "\e649";
+  font-family: themify;
+  font-weight: 900;
+  opacity: 1;
+  transition: all 0.3s ease 0s;
+  color: #fff;
+  background: none;
+}
+.slinky-theme-default .next:hover::after {
+  color: #007bff;
+}
+.slinky-theme-default .back::before {
+  content: "\e649";
+  font-family: themify;
+  font-weight: 900;
+  opacity: 1;
+  transition: all 0.3s ease 0s;
+  color: #fff;
+  background: none;
+  padding: 0;
+  background-color: #000;
+  text-align: center;
+  margin: 0 0 13px 0px;
+  border-radius: 3px;
+}
+.slinky-theme-default .back:hover::before {
+  background-color: #007bff;
+  opacity: 1;
+}

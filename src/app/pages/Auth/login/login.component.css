@@ -1,0 +1,7 @@
+button{
+  border-radius: 0.5rem !important;
+}
+button svg {
+  height: 24px;
+  width: auto;
+}

@@ -1,0 +1,45 @@
+h4 {
+  color: #88B04B;
+  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #404F5E;
+  /* font-family: "Nunito Sans", "Helvetica Neue", sans-serif; */
+  font-size: 18px;
+  margin: 0;
+}
+
+i {
+  color: #9ABC66;
+  font-size: 100px;
+  line-height: 200px;
+  margin-left: -15px;
+}
+
+.card {
+  background: white;
+  padding: 60px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin: 0 auto;
+  border: none;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+
+.btn-continue {
+  background-color: #88B04B;
+  border-color: #88B04B;
+
+}
+
+.btn-continue:hover {
+  background-color: #191918;
+  border-color: #88B04B;
+}

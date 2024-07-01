@@ -1,0 +1,108 @@
+<header class="header-area header-responsive-padding header-height-1">
+  <div class="header-top d-none d-lg-block bg-gray">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-6">
+          <div class="welcome-text">
+            <p>Welcome <span *ngIf="UserData?.name">{{ UserData?.name }} </span>!</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6" *ngIf="!isAuthenticated">
+          <div class="language-currency-wrap">
+            <div class="currency-wrap border-style">
+              <a class="currency-active" routerLink="login">Login</a>
+            </div>
+            <div class="language-wrap">
+              <a class="language-active" routerLink="register">Register</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6" *ngIf="isAuthenticated">
+          <div class="language-currency-wrap">
+            <div class="language-wrap">
+              <a (click)="logout()" class="language-active"> Logout <i class="ti-arrow-right ms-1"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="header-bottom sticky-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-3 col-md-6 col-6">
+          <div class="logo">
+            <a href="index.html"
+              ><img src="assets/images/logo/logo.png" alt="logo"
+            /></a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block d-flex justify-content-center">
+          <div class="main-menu text-center">
+            <nav>
+              <ul>
+                <li><a routerLink="/">HOME</a></li>
+                <li><a routerLink="/shop">SHOP</a></li>
+                <li><a routerLink="/about-us">ABOUT</a></li>
+                <li><a routerLink="contact-us">CONTACT US</a></li>
+                <li>
+                  <a routerLink="/contact-us">Mon Espace </a>
+                  <ul class="sub-menu-style">
+                    <li><a routerLink="cart">My Orders</a></li>
+                    <li><a href="about-us.html">Profile</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a routerLink="/contact-us">Admin</a>
+                  <ul class="sub-menu-style">
+                    <li><a href="about-us.html">Dashboard</a></li>
+                    <li><a routerLink="/orders">Orders</a></li>
+                    <li><a routerLink="/all-products">Products </a></li>
+                    <li><a href="checkout.html">Coupons</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6">
+          <div class="header-action-wrap">
+            <!-- <div class="header-action-style header-search-1">
+                          <a class="search-toggle" href="#">
+                              <i class="pe-7s-search s-open"></i>
+                              <i class="pe-7s-close s-close"></i>
+                          </a>
+                          <div class="search-wrap-1">
+                              <form action="#">
+                                  <input placeholder="Search products…" type="text">
+                                  <button class="button-search"><i class="pe-7s-search"></i></button>
+                              </form>
+                          </div>
+                      </div> -->
+                      <div class="header-action-style">
+                          <a title="Login Register" routerLink="login"><i class="pe-7s-user"></i></a>
+                      </div>
+            <div class="header-action-style">
+              <a title="Wishlist" routerLink="/wishlist"
+                ><i class="pe-7s-like"></i
+              ></a>
+            </div>
+            <div class="header-action-style header-action-cart">
+              <a class="cart-active" (click)="onCartButtonClick()">
+                <i class="pe-7s-shopbag"></i>
+                <span class="product-count bg-black" *ngIf="cartItemCount>0">{{ cartItemCount }}</span>
+              </a>
+            </div>
+
+            <div class="header-action-style d-block d-lg-none">
+              <a class="mobile-menu-active-button" (click)="onMenuButtonClick()"
+                ><i class="pe-7s-menu"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,34 @@
+.badge-danger{
+  background-color: rgb( 255,231,242 );
+  color: rgb( 179,9,60 );
+}
+
+
+.badge-success-light {
+  background-color: rgb( 215,247,194 );
+  color: rgb( 0,105,8 );
+}
+
+
+.card-count
+{
+  border: 1px solid rgb(38, 38, 38) ;
+  cursor: pointer;
+}
+.custom-card.selected
+{
+  border: 1px solid #e97730 !important;
+  color: #e97730 !important;
+}
+
+
+.bg-warning-light {
+  background-color: #fff2d6 !important;
+  color: #ffab00 !important;
+}
+
+
+.bg-danger-light {
+  background-color: #e6533c1a;
+  color: #e6533c;
+}
