@@ -28,10 +28,13 @@ export class CheckoutComponent implements OnInit {
       postcode: '',
       country: 'Morocco',
       phone: '',
-      email: ''
+      email: '',
+      note: '',
     },
 
   };
+  villes: any[] = [];
+
   // orderData: any
    constructor(
     private orderService: OrderService,
@@ -42,7 +45,9 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUserInformation();
     this.loadCartItems();
+    this.fetchVilles();
   }
 
   loadCartItems(): void {
@@ -60,21 +65,82 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  placeOrder(): void {
-    this.orderData.user_id = this.authService.getUserId();
-    this.orderService.placeOrder(this.orderData).subscribe(
-      response => {
-        this.toastr.success('Order placed successfully', 'Success');
-        this.cartService.fetchCartItemCount();
-        this.cartService.loadCart();
-        this.router.navigate(['/order-success']);
+  loadUserInformation(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.authService.getUserById(userId).subscribe(
+        userInfo => {
+          this.orderData.billing.first_name = userInfo.first_name || '';
+          this.orderData.billing.last_name = userInfo.last_name || '';
+          this.orderData.billing.country = 'Morocco';
+          this.orderData.billing.city = userInfo.city || null;
+          this.orderData.billing.address = userInfo.address || '';
+          this.orderData.billing.postcode = userInfo.postcode || '';
+          this.orderData.billing.phone = userInfo.phone || '';
+          this.orderData.billing.email = userInfo.email || '';
+        },
+        error => {
+          this.toastr.error('Failed to load user information', 'Error');
+          console.error('User information loading error:', error);
+        }
+      );
+    }
+  }
+
+
+  validateUserInformation(): boolean {
+    const billing = this.orderData.billing;
+    if (!billing.first_name || !billing.last_name || !billing.city || !billing.address || !billing.postcode || !billing.phone || !billing.email) {
+      this.toastr.warning('Please complete all required fields', 'Validation');
+      return false;
+    }
+    return true;
+  }
+
+  fetchVilles(): void {
+    this.orderService.getAllVilles().subscribe(
+      (data) => {
+        this.villes = data;
       },
-      error => {
-        this.toastr.error('Failed to place order', 'Error');
-        console.error('Order placement error:', error);
+      (error) => {
+        console.error('Error fetching cities', error);
       }
     );
   }
 
+  updateUserInformation(callback: () => void): void {
+    const userId = this.authService.getUserId();
+    const billing = this.orderData.billing;
+    this.authService.updateUser(userId, billing).subscribe(
+      response => {
+        this.toastr.success('User information updated successfully', 'Success');
+        callback();
+      },
+      error => {
+        this.toastr.error('Failed to update user information', 'Error');
+        console.error('User information update error:', error);
+      }
+    );
+  }
+
+  placeOrder(): void {
+    if (this.validateUserInformation()) {
+      this.updateUserInformation(() => {
+        this.orderData.user_id = this.authService.getUserId();
+        this.orderService.placeOrder(this.orderData).subscribe(
+          response => {
+            this.toastr.success('Order placed successfully', 'Success');
+            this.cartService.fetchCartItemCount();
+            this.cartService.loadCart();
+            this.router.navigate(['/order-success']);
+          },
+          error => {
+            this.toastr.error('Failed to place order', 'Error');
+            console.error('Order placement error:', error);
+          }
+        );
+      });
+    }
+}
 
 }

@@ -67,10 +67,6 @@
             </div>
           </div>
 
-
-
-
-
           <div class="col-md-6 mt-3">
             <div class="form-group">
               <label for="categorie_id">Category <span class="text-danger fw-bold">*</span></label>
@@ -89,16 +85,17 @@
 
           <div class="col-md-6 mt-3">
             <div class="form-group">
-              <label for="tag_id">Tag <span class="text-danger fw-bold">*</span></label>
+              <label for="tags">Tags <span class="text-danger fw-bold">*</span></label>
               <ng-select [items]="tags"
                          bindLabel="name"
                          bindValue="id"
-                         [(ngModel)]="product.tag_id"
-                         name="tag_id"
+                         [(ngModel)]="product.tags"
+                         name="tags"
+                         [multiple]="true"
                          required>
               </ng-select>
-              <div *ngIf="productForm.submitted && productForm.controls.tag_id?.errors" class="text-danger">
-                <div *ngIf="productForm.controls.tag_id.errors?.required">Tag is required</div>
+              <div *ngIf="productForm.submitted && productForm.controls.tags?.errors" class="text-danger">
+                <div *ngIf="productForm.controls.tags.errors?.required">Tags are required</div>
               </div>
             </div>
           </div>
@@ -125,18 +122,8 @@
 
           <div class="col-md-6 mt-3">
             <div class="form-group">
-              <label for="description">Description <span class="text-danger fw-bold">*</span></label>
-              <textarea id="description" class="form-control" name="description" [(ngModel)]="product.description" required></textarea>
-              <div *ngIf="productForm.submitted && productForm.controls.description?.errors" class="text-danger">
-                <div *ngIf="productForm.controls.description.errors?.required">Description is required</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 mt-3">
-            <div class="form-group">
               <label for="images">Additional Images </label>
-              <input type="file" class="form-control" name="images"  (change)="onFileChange($event, 'images')" multiple>
+              <input type="file" class="form-control" name="images" (change)="onFileChange($event, 'images')" multiple>
             </div>
           </div>
 
@@ -145,6 +132,8 @@
           </div>
         </div>
       </form>
+
+
     </div>
   </div>
 </div>

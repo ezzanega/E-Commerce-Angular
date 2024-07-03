@@ -75,7 +75,11 @@
                     {{ product.old_price ? product.old_price + " MAD" : "--" }}
                   </td>
                   <td>{{ product.category.name }}</td>
-                  <td>{{ product.tag.name }}</td>
+                  <td>
+                    <span *ngFor="let tag of product.tags; let j = index">
+                      {{ tag.name }}<span *ngIf="j < product.tags.length - 1">, </span>
+                    </span>
+                  </td>
                   <td>{{ product.description | truncate : 20 }}</td>
                   <td>{{ product.sku }}</td>
                   <td>

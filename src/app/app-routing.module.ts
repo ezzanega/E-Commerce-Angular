@@ -24,7 +24,6 @@ import { DetailsOrderComponent } from './pages/details-order/details-order.compo
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent ,  canActivate: [LoginGuard] },
-
   { path: 'shop', component: ShopComponent},
   { path: 'cart', component: CartComponent , canActivate: [AuthguardGuard] },
   { path: 'wishlist', component: WishlistComponent  , canActivate: [AuthguardGuard]},

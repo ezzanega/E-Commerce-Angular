@@ -1,22 +1,37 @@
+import { Image } from './../../Models/product.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/products/product.service';
 
+
+interface Product {
+  nom: string;
+  prix: number | null;
+  old_price: number | null;
+  sku: string;
+  categorie_id: number | null;
+  tags: number[];
+  color: string;
+  image_initiale: File | null;
+  description: string;
+  images: File[];
+}
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
+
 export class AddProductComponent implements OnInit {
 
-  product: any = {
+  product: Product = {
     nom: '',
-    prix: '',
-    old_price: '',
+    prix: null,
+    old_price: null,
     sku: '',
-    categorie_id: '',
-    tag_id: '',
+    categorie_id: null,
+    tags: [],
     color: '',
     image_initiale: null,
     description: '',
@@ -45,39 +60,56 @@ export class AddProductComponent implements OnInit {
     );
   }
 
+
+
+  onFileChange(event: any, field: string): void {
+    const files = event.target.files;
+    if (field === 'image_initiale') {
+      this.product.image_initiale = files[0];
+    } else if (field === 'images') {
+      this.product.images = Array.from(files);
+    }
+  }
+
+
+
   onSubmit(form: NgForm): void {
     if (form.invalid) {
       return;
     }
 
     const formData = new FormData();
-    for (const key in this.product) {
+
+    (Object.keys(this.product) as Array<keyof Product>).forEach((key) => {
       if (this.product[key]) {
-        if (key === 'image_initiale' || key === 'images') {
-          for (let i = 0; i < this.product[key].length; i++) {
-            formData.append(key, this.product[key][i]);
-          }
+        if (key === 'images') {
+          this.product.images.forEach((image: File) => {
+            formData.append('images[]', image);
+          });
+        } else if (key === 'tags') {
+          this.product.tags.forEach((tag: number) => {
+            formData.append('tags[]', tag.toString());
+          });
+        } else if (key === 'image_initiale') {
+          formData.append('image_initiale', this.product[key] as File);
         } else {
-          formData.append(key, this.product[key]);
+          formData.append(key, this.product[key] as string | Blob);
         }
       }
-    }
+    });
 
     this.productService.addProduct(formData).subscribe(
       (response) => {
         console.log('Product created successfully', response);
-      //  this.router.navigate(['/all-products']); // Navigate to products list page
+     //   this.toastr.success('Product created successfully');
+        this.router.navigate(['/all-products']); 
       },
       (error) => {
-        this.errorMessage = error.error.message
+        this.errorMessage = error.error;
         console.error('Error creating product', error);
+      //  this.toastr.error('Error creating product');
       }
     );
   }
 
-  onFileChange(event :any, fieldName: string): void {
-    if (event.target.files.length > 0) {
-      this.product[fieldName] = event.target.files;
-    }
-  }
 }

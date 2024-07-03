@@ -5,7 +5,7 @@ export interface Product {
   old_price?: number;
   sku: string;
   category_id: number;
-  tag_id: number;
+  tags: Tag[];
   color?: string;
   image_initiale: string;
   description: string;

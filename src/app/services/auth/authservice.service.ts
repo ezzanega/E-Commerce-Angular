@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthResponse } from 'src/app/Models/auth-response.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,13 +17,6 @@ export class AuthserviceService {
 
   private authStatusListener = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-
-  googleSignUp(auth0Token: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/google`, { token: auth0Token })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
 
   login(credentials:any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, credentials);
@@ -57,6 +51,7 @@ export class AuthserviceService {
   getUserById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/user?id=${id}`);
   }
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
@@ -76,5 +71,17 @@ export class AuthserviceService {
     return throwError('Something bad happened; please try again later.');
   }
 
+
+  googleSignUp(token: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/google`, { token });
+  }
+
+  googleLogin(token: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login/google`, { token });
+  }
+
+  updateUser(id: number, userData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/user/update/${id}`, userData);
+  }
 
 }

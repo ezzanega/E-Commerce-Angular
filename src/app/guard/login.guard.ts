@@ -9,11 +9,13 @@ import { Observable } from 'rxjs';
 export class LoginGuard implements CanActivate {
   constructor(private authService : AuthserviceService , private router : Router) {}
   canActivate(): boolean {
-    if (this.authService.isAuthenticated()) {
+    const token = this.authService.getToken();
+    if (token) {
       this.router.navigate(['/']);
       return false;
     }
     return true;
+  
   }
 
 }
