@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/Models/order.modem';
 import { OrderService } from 'src/app/services/order/order.service';
 
@@ -9,7 +10,7 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class AllOrdersComponent implements OnInit {
   orders: Order[] = [];
-  orderCounts: any = { all: 0, pending: 0, sent: 0, canceled: 0 };
+  orderCounts: any = { all: 0, pending: 0, sent: 0, canceled: 0,processing: 0 };
   errorMessage: string = '';
   isLoading: boolean = false;
 
@@ -20,7 +21,7 @@ export class AllOrdersComponent implements OnInit {
     totalPages: number = 0;
 
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService,private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadOrders();
@@ -55,24 +56,39 @@ export class AllOrdersComponent implements OnInit {
     );
   }
 
+  updateOrderStatus(orderId: number, status: string): void {
+    this.orderService.updateOrderStatus(orderId, status).subscribe(
+      response => {
+        this.toastr.success('Order status updated successfully', 'Success');
+        this.loadOrders(); // Reload orders to reflect the updated status
+        this.loadOrderCounts();
+      },
+      error => {
+        this.toastr.error('Failed to update order status', 'Error');
+        console.error('Order status update error:', error);
+      }
+    );
+  }
+
 
   formatDate(dateString: string): string {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   }
 
+
   getBadgeClass(status: string): string {
-    switch (status.toLowerCase()) {
+    switch (status) {
       case 'pending':
-        return 'badge bg-warning-light ';
-      case 'approved':
-        return 'badge bg-success-light ';
-      case 'on hold':
-        return 'badge bg-secondary';
-      case 'canceled':
+        return 'badge bg-warning-light';
+      case 'processing':
+        return 'badge bg-primary';
+      case 'completed':
+        return 'badge bg-success-light';
+      case 'cancelled':
         return 'badge bg-danger-light';
       default:
-        return 'badge bg-primary';
+        return 'badge bg-secondary-light';
     }
   }
 

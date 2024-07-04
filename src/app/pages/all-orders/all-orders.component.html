@@ -20,6 +20,14 @@
     <div class="col">
       <a class="card custom-card rounded-4 card-count">
         <div class="card-body">
+          <span>Processing</span>
+          <h4>{{ orderCounts.processing }}</h4>
+        </div>
+      </a>
+    </div>
+    <div class="col">
+      <a class="card custom-card rounded-4 card-count">
+        <div class="card-body">
           <span>Sent</span>
           <h4>{{ orderCounts.sent }}</h4>
         </div>
@@ -38,34 +46,63 @@
     <span class="visually-hidden">Loading...</span>
   </div>
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-  <div  class="myaccount-table table-responsive text-center" *ngIf="orders.length > 0">
-    <table class="table table-bordered">
-      <thead  class="thead-light">
-        <tr>
-          <th>Order</th>
-          <th>Date</th>
-          <th>Client</th>
-          <th>Status</th>
-          <th>Total</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>{{ order.id }}</td>
-          <td>{{ formatDate(order.created_at) }}</td>
-          <td><a>{{ order.user.first_name }} {{ order.user.last_name }}</a></td>
-          <td><span [class]="getBadgeClass(order.status)">{{ order.status }}</span></td>
-          <td class="text-primary">{{ order.total_amount }} MAD</td>
-          <td><a [routerLink]="['/order/détails']" class="check-btn sqr-btn">View</a></td>
-        </tr>
-      </tbody>
-    </table>
+  <div
+    class="myaccount-table table-responsive text-center"
+    *ngIf="orders.length > 0"
+  >
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th>Order</th>
+        <th>Date</th>
+        <th>Client</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ formatDate(order.created_at) }}</td>
+        <td>
+          <a>{{ order.user.first_name }} {{ order.user.last_name }}</a>
+        </td>
+        <td>
+          <span [class]="getBadgeClass(order.status)">{{ order.status }}</span>
+        </td>
+        <td class="text-primary">{{ order.total_amount }} MAD</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-pencil-square-o align-self-center"></i> Status
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="updateOrderStatus(order.id, 'pending')">Pending</a></li>
+              <li><a class="dropdown-item" (click)="updateOrderStatus(order.id, 'processing')">Processing</a></li>
+              <li><a class="dropdown-item" (click)="updateOrderStatus(order.id, 'completed')">Completed</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="updateOrderStatus(order.id, 'cancelled')">Cancelled</a></li>
+            </ul>
+          </div>
+
+          <button [routerLink]="['/order/détails']" class="btn btn-light product-action-btn-3 ms-2" title="Wishlist">
+            <i class="fa fa-eye "></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
     <div class="d-flex justify-content-end pb-40">
       <div class="pagination-style-1">
         <ul>
           <li *ngFor="let page of [].constructor(totalPages); let i = index">
-            <a [class.active]="i + 1 === currentPage" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+            <a
+              [class.active]="i + 1 === currentPage"
+              (click)="onPageChange(i + 1)"
+              >{{ i + 1 }}</a
+            >
           </li>
           <li *ngIf="currentPage < totalPages">
             <a class="next" (click)="onPageChange(currentPage + 1)">
@@ -80,4 +117,3 @@
     <p>No orders available.</p>
   </div>
 </div>
-
