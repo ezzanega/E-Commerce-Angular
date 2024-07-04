@@ -34,6 +34,7 @@ export class CheckoutComponent implements OnInit {
 
   };
   villes: any[] = [];
+  errorMessage:string=''
 
   // orderData: any
    constructor(
@@ -91,6 +92,7 @@ export class CheckoutComponent implements OnInit {
   validateUserInformation(): boolean {
     const billing = this.orderData.billing;
     if (!billing.first_name || !billing.last_name || !billing.city || !billing.address || !billing.postcode || !billing.phone || !billing.email) {
+      this.errorMessage='Please complete all required fields'
       this.toastr.warning('Please complete all required fields', 'Validation');
       return false;
     }
@@ -124,6 +126,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder(): void {
+    this.errorMessage=''
     if (this.validateUserInformation()) {
       this.updateUserInformation(() => {
         this.orderData.user_id = this.authService.getUserId();
@@ -135,6 +138,7 @@ export class CheckoutComponent implements OnInit {
             this.router.navigate(['/order-success']);
           },
           error => {
+            this.errorMessage='Failed to place order';
             this.toastr.error('Failed to place order', 'Error');
             console.error('Order placement error:', error);
           }
