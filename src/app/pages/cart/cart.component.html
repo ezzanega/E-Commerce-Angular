@@ -50,7 +50,7 @@
                 <tr *ngFor="let item of cartItems">
                   <td class="product-thumbnail">
                     <a [routerLink]="['/product-details', item.product.id]">
-                      <img [src]="'http://127.0.0.1:8000/storage/' + item.product.image_initiale" alt="" />
+                      <img [src]="'https://custom-folder.monmiroirdigital.com/storage/app/public/' + item.product.image_initiale" alt="" />
                     </a>
                   </td>
                   <td class="product-name">

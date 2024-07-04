@@ -42,13 +42,13 @@
                   <div class="easyzoom easyzoom--overlay">
                     <a
                       [href]="
-                        'http://127.0.0.1:8000/storage/' +
+                        'https://custom-folder.monmiroirdigital.com/storage/app/public/' +
                         product.image_initiale
                       "
                     >
                       <img
                         [src]="
-                          'http://127.0.0.1:8000/storage/' +
+                          'https://custom-folder.monmiroirdigital.com/storage/app/public/' +
                           product.image_initiale
                         "
                         alt=""
@@ -58,7 +58,7 @@
                   <a
                     class="easyzoom-pop-up img-popup"
                     [href]="
-                      'http://127.0.0.1:8000/storage/' + product.image_initiale
+                      'https://custom-folder.monmiroirdigital.com/storage/app/public/' + product.image_initiale
                     "
                   >
                     <i class="pe-7s-search"></i>
@@ -69,16 +69,16 @@
               <div class="swiper-slide" *ngFor="let image of product.images">
                 <div class="easyzoom-style">
                   <div class="easyzoom easyzoom--overlay">
-                    <a [href]="'http://127.0.0.1:8000/storage/' + image.image">
+                    <a [href]="'https://custom-folder.monmiroirdigital.com/storage/app/public/' + image.image">
                       <img
-                        [src]="'http://127.0.0.1:8000/storage/' + image.image"
+                        [src]="'https://custom-folder.monmiroirdigital.com/storage/app/public/' + image.image"
                         alt=""
                       />
                     </a>
                   </div>
                   <a
                     class="easyzoom-pop-up img-popup"
-                    [href]="'http://127.0.0.1:8000/storage/' + image.image"
+                    [href]="'https://custom-folder.monmiroirdigital.com/storage/app/public/' + image.image"
                   >
                     <i class="pe-7s-search"></i>
                   </a>
