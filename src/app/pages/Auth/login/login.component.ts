@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit {
         this.googleLoader = false; // Hide loader on error
         console.log('Google Sign-In error:', JSON.stringify(error, undefined, 2));
         this.toastr.error('Google Sign-In failed');
+        this.googleLoginLoader=false;
       }
     );
   }
